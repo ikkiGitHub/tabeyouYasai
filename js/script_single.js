@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // 各トレースのnameを配列で渡す
                 name: [
                   "価格",
-                  "近似直線",
+                  "近似曲線",
                   "移動平均 7日",
                   "移動平均 14日",
                   "移動平均 30日",
@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // --- レイアウトとアップデータメニューを定義 ---
         var layout = {
-          title: { text: "品物別" },
+          title: { text: "品物別  1kg当たりの平均価格" },
           xaxis: {
             tickformat: "%Y-%m-%d",
             rangeslider: { visible: true },
