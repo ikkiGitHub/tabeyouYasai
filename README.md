@@ -1,8 +1,8 @@
 # 青果物卸売市場調査（日別調査）
 
-### 使用したデータ：
-
 [github page](https://ikkigithub.github.io/tabeyouYasai/)
+
+### 使用したデータ：
 
 [出典:「青果物卸売市場調査」(農林水産省)](https://www.maff.go.jp/j/tokei/kouhyou/seika_orosi/index.html#d)
 
