@@ -60,12 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
         plotTraces.push(trace);
       });
 
-      // 初期表示
-      plotTraces[0].visible = true;
-      plotTraces[1].visible = true;
-      plotTraces[2].visible = true;
-      plotTraces[3].visible = true;
-      plotTraces[4].visible = true;
+      // 初期表示 カレー
+      plotTraces[1].visible = true; // たまねぎ
+      plotTraces[5].visible = true; // にんじん
+      plotTraces[6].visible = true; // ばれいしょ
 
       // 日付の処理
       const parsedDates = allDates
@@ -79,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // レイアウト設定
       var layout = {
-        title: { text: "主要10品目" },
+        title: { text: "主要10品目 1kg当たりの平均価格" },
         xaxis: {
           tickformat: "%Y-%m-%d",
           range: [startDate, endDate],
