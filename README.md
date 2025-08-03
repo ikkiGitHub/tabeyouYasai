@@ -1,6 +1,6 @@
 # 青果物卸売市場調査（日別調査）
 
-[github page](https://ikkigithub.github.io/tabeyouYasai/)
+[GitHub Pages](https://ikkigithub.github.io/tabeyouYasai/)
 
 ### 使用したデータ：
 
@@ -33,3 +33,5 @@ import pandas as pd
 [plotly js](https://github.com/plotly/plotly.js)
 
 [D3 js](https://github.com/d3/d3)
+
+データの取得は、Windows タスク スケジューラを使用しています
