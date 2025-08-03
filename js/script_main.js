@@ -1,16 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   // 読み込むファイルのパス、表示名、線の色を定義
   const filesToLoad = [
-    ["data/json/ky_34400.json", "トマト", "#E377C2"], // ピンク系
-    ["data/json/ky_36610.json", "たまねぎ", "#7F7F7F"], // グレー系
-    ["data/json/ky_34100.json", "きゅうり", "#D62728"], // 赤系 (アクセントとして)
-    ["data/json/ky_31900.json", "ねぎ", "#98DF8A"], // 明るい緑
-    ["data/json/ky_31700.json", "キャベツ", "#2CA02C"], // 濃い緑
-    ["data/json/ky_30300.json", "にんじん", "#FF7F0E"], // オレンジ系
-    ["data/json/ky_36200.json", "ばれいしょ", "#BD7122"], // 薄いオレンジ
-    ["data/json/ky_33400.json", "レタス", "#BCBD22"], // 黄緑
-    ["data/json/ky_33300.json", "ブロッコリー", "#1F77B4"], // 青系
-    ["data/json/ky_34500.json", "ピーマン", "#8C564B"], // 茶色系
+    ["data/json/ky_34400_stat_time.json", "トマト", "#E377C2"], // ピンク系
+    ["data/json/ky_36610_stat_time.json", "たまねぎ", "#7F7F7F"], // グレー系
+    ["data/json/ky_34100_stat_time.json", "きゅうり", "#D62728"], // 赤系 (アクセントとして)
+    ["data/json/ky_31900_stat_time.json", "ねぎ", "#98DF8A"], // 明るい緑
+    ["data/json/ky_31700_stat_time.json", "キャベツ", "#2CA02C"], // 濃い緑
+    ["data/json/ky_30300_stat_time.json", "にんじん", "#FF7F0E"], // オレンジ系
+    ["data/json/ky_36200_stat_time.json", "ばれいしょ", "#BD7122"], // 薄いオレンジ
+    ["data/json/ky_33400_stat_time.json", "レタス", "#BCBD22"], // 黄緑
+    ["data/json/ky_33300_stat_time.json", "ブロッコリー", "#1F77B4"], // 青系
+    ["data/json/ky_34500_stat_time.json", "ピーマン", "#8C564B"], // 茶色系
   ];
 
   function loadJsonPromise(url) {

@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // 各トレースのxデータを配列で渡す
                 x: [
                   unpack(dataForThisItem, "日付"), // 価格
-                  unpack(dataForThisItem, "日付"), // 近似直線
+                  unpack(dataForThisItem, "日付"), // 近似曲線
                   unpack(dataForThisItem, "日付"), // 移動平均 7日
                   unpack(dataForThisItem, "日付"), // 移動平均 14日
                   unpack(dataForThisItem, "日付"), // 移動平均 30日
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // 各トレースのyデータを配列で渡す
                 y: [
                   unpack(dataForThisItem, "価格"), // 価格
-                  unpack(dataForThisItem, "reg1"), // 近似直線
+                  unpack(dataForThisItem, "reg1"), // 近似曲線
                   unpack(dataForThisItem, "ma_7"), // 移動平均 7日
                   unpack(dataForThisItem, "ma_14"), // 移動平均 14日
                   unpack(dataForThisItem, "ma_30"), // 移動平均 30日
@@ -62,21 +62,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 // 各トレースのline.colorを配列で渡す
                 "line.color": [
                   "#68f3e7ff", // 価格の線色 (固定)
-                  "#000000ff", // 近似直線の線色 (固定)
+                  "#000000ff", // 近似曲線の線色 (固定)
                   "#868686ff", // MA7の線色 (固定)
                   "#adadadff", // MA14の線色 (固定)
                   "#d6d6d6ff", // MA30の線色 (固定)
                 ],
                 "line.dash": [
                   "solid", // 価格
-                  "dot", // 近似直線
+                  "dot", // 近似曲線
                   "solid", // MA7
                   "solid", // MA14
                   "solid", // MA30
                 ],
                 "line.width": [
                   2, // 価格
-                  4, // 近似直線
+                  4, // 近似曲線
                   2, // MA7
                   2, // MA14
                   2, // MA30
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // 各トレースのvisibleを配列で渡す
                 visible: [
                   true, // 価格は常に表示
-                  true, // 近似直線は常に表示
+                  true, // 近似曲線は常に表示
                   true, // MA7は常に表示
                   "legendonly", // MA14は非表示
                   "legendonly", // MA30は非表示
