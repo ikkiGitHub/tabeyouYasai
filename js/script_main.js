@@ -1,121 +1,106 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // 読み込むファイルのパス、表示名、線の色を定義
+document.addEventListener("DOMContentLoaded", async () => {
   const filesToLoad = [
-    ["data/json/ky_34400_stat_time.json", "トマト", "#E377C2"], // ピンク系
-    ["data/json/ky_36610_stat_time.json", "たまねぎ", "#7F7F7F"], // グレー系
-    ["data/json/ky_34100_stat_time.json", "きゅうり", "#D62728"], // 赤系 (アクセントとして)
-    ["data/json/ky_31900_stat_time.json", "ねぎ", "#98DF8A"], // 明るい緑
-    ["data/json/ky_31700_stat_time.json", "キャベツ", "#2CA02C"], // 濃い緑
-    ["data/json/ky_30300_stat_time.json", "にんじん", "#FF7F0E"], // オレンジ系
-    ["data/json/ky_36200_stat_time.json", "ばれいしょ", "#BD7122"], // 薄いオレンジ
-    ["data/json/ky_33400_stat_time.json", "レタス", "#BCBD22"], // 黄緑
-    ["data/json/ky_33300_stat_time.json", "ブロッコリー", "#1F77B4"], // 青系
-    ["data/json/ky_34500_stat_time.json", "ピーマン", "#8C564B"], // 茶色系
+    ["data/json/ky_34400_stat_time.json", "トマト", "#E377C2"],
+    ["data/json/ky_36610_stat_time.json", "たまねぎ", "#7F7F7F"],
+    ["data/json/ky_34100_stat_time.json", "きゅうり", "#D62728"],
+    ["data/json/ky_31900_stat_time.json", "ねぎ", "#98DF8A"],
+    ["data/json/ky_31700_stat_time.json", "キャベツ", "#2CA02C"],
+    ["data/json/ky_30300_stat_time.json", "にんじん", "#FF7F0E"],
+    ["data/json/ky_36200_stat_time.json", "ばれいしょ", "#BD7122"],
+    ["data/json/ky_33400_stat_time.json", "レタス", "#BCBD22"],
+    ["data/json/ky_33300_stat_time.json", "ブロッコリー", "#1F77B4"],
+    ["data/json/ky_34500_stat_time.json", "ピーマン", "#8C564B"],
   ];
 
-  function loadJsonPromise(url) {
-    return new Promise(function (resolve, reject) {
-      d3.json(url, function (err, data) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data);
-        }
-      });
-    });
+  // Helper function: JSONデータをフェッチして返す
+  async function fetchJson(url) {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status} for ${url}`);
+    }
+    return response.json();
   }
-  // Promise.all に渡すためのURLの配列を作成
-  const urls = filesToLoad.map((item) => item[0]);
 
-  Promise.all(urls.map((url) => loadJsonPromise(url)))
-    .then(function (results) {
-      function unpack(rows, key) {
-        return rows.map(function (row) {
-          return row[key];
-        });
-      }
+  // Helper function: データを整形する
+  function unpack(rows, key) {
+    return rows.map((row) => row[key]);
+  }
 
-      const plotTraces = [];
-      let allDates = [];
+  // Helper function: トレースオブジェクトを生成する
+  function createTrace(data, displayName, lineColor) {
+    return {
+      type: "scatter",
+      mode: "lines",
+      name: displayName + "価格",
+      x: unpack(data, "日付"),
+      y: unpack(data, "価格"),
+      line: { color: lineColor },
+      visible: "legendonly",
+    };
+  }
 
-      // filesToLoadの情報を元にループでトレースを生成
-      filesToLoad.forEach((fileInfo, index) => {
-        const fileName = fileInfo[0];
-        const displayName = fileInfo[1];
-        const lineColor = fileInfo[2];
-        const fileData = results[index];
+  try {
+    // 1. 全てのURLからJSONデータを並行して取得
+    const urls = filesToLoad.map((item) => item[0]);
+    const results = await Promise.all(urls.map((url) => fetchJson(url)));
 
-        const dates = unpack(fileData, "日付");
-        allDates = allDates.concat(dates);
+    const plotTraces = [];
+    let allDates = [];
 
-        const trace = {
-          type: "scatter",
-          mode: "lines",
-          name: displayName + "価格",
-          x: unpack(fileData, "日付"),
-          y: unpack(fileData, "価格"),
-          line: { color: lineColor },
-          visible: "legendonly",
-        };
-        plotTraces.push(trace);
-      });
+    // 2. 取得したデータをもとにトレースを生成
+    filesToLoad.forEach((fileInfo, index) => {
+      const [, displayName, lineColor] = fileInfo;
+      const fileData = results[index];
 
-      // 初期表示 カレー
-      plotTraces[1].visible = true; // たまねぎ
-      plotTraces[5].visible = true; // にんじん
-      plotTraces[6].visible = true; // ばれいしょ
+      const dates = unpack(fileData, "日付");
+      allDates = allDates.concat(dates);
 
-      // 日付の処理
-      const parsedDates = allDates
-        .map((d) => new Date(d))
-        .sort((a, b) => a - b);
-      const latestDate = parsedDates[parsedDates.length - 1];
-      const oneYearAgo = new Date(latestDate);
-      oneYearAgo.setFullYear(latestDate.getFullYear() - 1);
-      const startDate = oneYearAgo.toISOString().split("T")[0];
-      const endDate = latestDate.toISOString().split("T")[0];
-
-      // レイアウト設定
-      var layout = {
-        title: { text: "主要10品目 1kg当たりの平均価格" },
-        xaxis: {
-          tickformat: "%Y-%m-%d",
-          range: [startDate, endDate],
-          rangeselector: {
-            buttons: [
-              {
-                count: 6,
-                label: "6 month",
-                step: "month",
-                stepmode: "backward",
-              },
-              {
-                count: 1,
-                label: "1 year",
-                step: "year",
-                stepmode: "backward",
-              },
-              {
-                count: 2,
-                label: "2 year",
-                step: "year",
-                stepmode: "backward",
-              },
-              { step: "all", label: "全て" },
-            ],
-          },
-          rangeslider: { autorange: true },
-          type: "date",
-        },
-        yaxis: {
-          autorange: true,
-          type: "linear",
-        },
-      };
-      // Plotlyでグラフを描画
-      Plotly.newPlot("myDiv", plotTraces, layout);
-    })
-    .catch(function (error) {
-      console.error("ファイル読み込みエラー:", error);
+      plotTraces.push(createTrace(fileData, displayName, lineColor));
     });
+
+    // 3. 初期表示トレースの設定
+    plotTraces[1].visible = true; // たまねぎ
+    plotTraces[5].visible = true; // にんじん
+    plotTraces[6].visible = true; // ばれいしょ
+
+    // 4. 日付の範囲を計算
+    const parsedDates = allDates.map((d) => new Date(d)).sort((a, b) => a - b);
+    const latestDate = parsedDates[parsedDates.length - 1];
+    const oneYearAgo = new Date(
+      latestDate.getFullYear() - 1,
+      latestDate.getMonth(),
+      latestDate.getDate()
+    );
+
+    // 5. レイアウトを定義
+    const layout = {
+      title: { text: "主要10品目 1kg当たりの平均価格" },
+      xaxis: {
+        tickformat: "%Y-%m-%d",
+        range: [
+          oneYearAgo.toISOString().split("T")[0],
+          latestDate.toISOString().split("T")[0],
+        ],
+        rangeselector: {
+          buttons: [
+            { count: 6, label: "6 month", step: "month", stepmode: "backward" },
+            { count: 1, label: "1 year", step: "year", stepmode: "backward" },
+            { count: 2, label: "2 year", step: "year", stepmode: "backward" },
+            { step: "all", label: "全て" },
+          ],
+        },
+        rangeslider: { autorange: true },
+        type: "date",
+      },
+      yaxis: { autorange: true, type: "linear" },
+    };
+
+    // 6. グラフを描画
+    Plotly.newPlot("myDiv", plotTraces, layout);
+  } catch (error) {
+    console.error(
+      "データの読み込みまたはグラフの描画中にエラーが発生しました:",
+      error
+    );
+  }
 });
