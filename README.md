@@ -1,6 +1,6 @@
 # 青果物卸売市場調査（日別調査）
 
-[github page](https://ikkigithub.github.io/tabeyouYasai/)
+[GitHub Pages](https://ikkigithub.github.io/tabeyouYasai/)
 
 ### 使用したデータ：
 
@@ -23,13 +23,21 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.service import Service
 from selenium.webdriver.support.select import Select
+import requests
+from bs4 import BeautifulSoup
 
 import os
+import re
+import datetime
+import glob
+import shutil
+import subprocess
 
+import pdfplumber
 import zipfile
 import pandas as pd
+import matplotlib.dates as mdates
+import numpy as np
 ```
 
 [plotly js](https://github.com/plotly/plotly.js)
-
-[D3 js](https://github.com/d3/d3)

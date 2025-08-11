@@ -29,6 +29,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       "前年同日比(移動平均30日)",
     ];
 
+    //日付の取得
+    date_data = data[0]["日付"];
+
     const allPlotData = metrics.map((key) => ({
       key,
       ...getSortedData(data, key), // items と values を展開して追加
@@ -66,7 +69,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     ];
 
     const layout = {
-      title: { text: "割安指標" },
+      title: { text: "-割安指標-" + date_data },
       xaxis: { tickangle: -90, automargin: true },
       updatemenus: [
         {
