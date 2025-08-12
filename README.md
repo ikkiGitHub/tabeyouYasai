@@ -41,3 +41,9 @@ import numpy as np
 ```
 
 [plotly js](https://github.com/plotly/plotly.js)
+
+---
+
+### 作成意図
+
+安い物(余っている物)を食べる

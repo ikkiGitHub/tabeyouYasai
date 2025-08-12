@@ -71,6 +71,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     const layout = {
       title: { text: "-割安指標-" + date_data },
       xaxis: { tickangle: -90, automargin: true },
+      yaxis: {
+        title: {
+          text: "パーセント",
+        },
+      },
       updatemenus: [
         {
           buttons: dropdownButtons,
