@@ -8,9 +8,23 @@
     <script src="js/script_main.js"></script>
     <script src="js/script_single.js"></script>
     <script src="js/script_stat_basic.js"></script>
+    <script src="js\script_store.js"></script>
   </head>
   <body>
-    <h2>青果物卸売市場調査（日別調査）-主要卸売市場計-</h2>
+    <h2>■■食品価格動向調査(野菜)■■</h2>
+    <p>
+      <a
+        href="https://www.maff.go.jp/j/zyukyu/anpo/kouri/k_yasai/h22index.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        >出典:「食品価格動向調査(野菜)」(農林水産省)</a
+      >
+    </p>
+    <h2>食品の小売店価格</h2>
+    <h3>-価格-</h3>
+    <div id="myDiv_store"></div>
+    <hr />
+    <h2>■■青果物卸売市場調査（日別調査）-主要卸売市場計-■■</h2>
     <p>
       <a
         href="https://www.maff.go.jp/j/tokei/kouhyou/seika_orosi/index.html"
@@ -19,12 +33,13 @@
         >出典:「青果物卸売市場調査」(農林水産省)</a
       >
     </p>
+    <h2>食品の市場の取引価格</h2>
     <h3>-価格-主要10品目</h3>
     <div id="myDiv"></div>
     <h3>-価格-品物別</h3>
     <div id="myDiv_single"></div>
     <h3>-割安指標-</h3>
-    <p>100を基準に 100より小さければ割安 高ければ割高</p>
+    <p>100を基準に 100より小さければ割安 大きければ割高</p>
     <div id="myDiv_stat_basic"></div>
   </body>
 </html>
