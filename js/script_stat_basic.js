@@ -73,8 +73,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       xaxis: { tickangle: -90, automargin: true },
       yaxis: {
         title: {
-          text: "パーセント",
+          text: "←割安 割高→",
         },
+        range: [-40, 40],
+        dtick: 10,
       },
       updatemenus: [
         {
