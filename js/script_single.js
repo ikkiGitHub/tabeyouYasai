@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
 
     // 4. 初期表示のトレースとレイアウトを準備
-    const initialIndex = 2; // だいこん
+    const initialIndex = 3; // にんじん
     const initialButtonArgs = dropdownButtons[initialIndex].args[0];
     const initialTrace = createInitialTraces(initialButtonArgs);
     const layout = {

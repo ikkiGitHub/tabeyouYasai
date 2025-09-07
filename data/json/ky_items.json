@@ -1,17 +1,10 @@
 [
   {
-    "品目コード":"30000a",
+    "品目コード":"30000",
     "品目名":"野菜総計",
-    "path_data":"data\/json\/ky_30000a.json",
-    "path_stat_basic":"data\/json\/ky_30000a_stat_basic.json",
-    "path_stat_time":"data\/json\/ky_30000a_stat_time.json"
-  },
-  {
-    "品目コード":"30000b",
-    "品目名":"野菜総量",
-    "path_data":"data\/json\/ky_30000b.json",
-    "path_stat_basic":"data\/json\/ky_30000b_stat_basic.json",
-    "path_stat_time":"data\/json\/ky_30000b_stat_time.json"
+    "path_data":"data\/json\/ky_30000.json",
+    "path_stat_basic":"data\/json\/ky_30000_stat_basic.json",
+    "path_stat_time":"data\/json\/ky_30000_stat_time.json"
   },
   {
     "品目コード":"30100",
