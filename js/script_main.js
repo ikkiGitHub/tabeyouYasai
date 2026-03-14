@@ -12,13 +12,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     ["data/json/ky_34500_stat_time.json", "ピーマン", "#8C564B"],
   ];
 
-  // Helper function: JSONデータをフェッチして返す
+  // Helper function: JSONデータをフェッチして返す（キャッシュ対応）
   async function fetchJson(url) {
+    const cacheKey = `cache_${url}`;
+    const cached = localStorage.getItem(cacheKey);
+    if (cached) {
+      const { data, timestamp } = JSON.parse(cached);
+      if (Date.now() - timestamp < 24 * 60 * 60 * 1000) {
+        // 24時間キャッシュ
+        return data;
+      }
+    }
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status} for ${url}`);
     }
-    return response.json();
+    const data = await response.json();
+    localStorage.setItem(
+      cacheKey,
+      JSON.stringify({ data, timestamp: Date.now() }),
+    );
+    return data;
   }
 
   // Helper function: データを整形する
@@ -38,6 +52,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       visible: "legendonly",
     };
   }
+
+  // ローディング表示
+  const loadingDiv = document.getElementById("loading");
+  const errorDiv = document.getElementById("error");
+  loadingDiv.classList.remove("hidden");
+  errorDiv.classList.add("hidden");
 
   try {
     // 1. 全てのURLからJSONデータを並行して取得
@@ -69,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const oneYearAgo = new Date(
       latestDate.getFullYear() - 1,
       latestDate.getMonth(),
-      latestDate.getDate()
+      latestDate.getDate(),
     );
 
     // 5. レイアウトを定義
@@ -97,10 +117,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 6. グラフを描画
     Plotly.newPlot("myDiv", plotTraces, layout);
+
+    // ローディング非表示
+    loadingDiv.classList.add("hidden");
   } catch (error) {
     console.error(
       "データの読み込みまたはグラフの描画中にエラーが発生しました:",
-      error
+      error,
     );
+    // エラー表示
+    loadingDiv.classList.add("hidden");
+    errorDiv.classList.remove("hidden");
+    errorDiv.textContent = "データ読み込みエラー: " + error.message;
   }
 });

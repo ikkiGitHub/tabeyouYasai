@@ -1,6 +1,7 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif; /* 美しいフォント */
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif; /* 美しいフォント */
   background-color: #f8f9fa; /* 背景色 */
   color: #333; /* 文字色 */
   margin: 0;
@@ -49,4 +50,22 @@ hr {
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  margin: 20px;
+}
+
+.error {
+  display: none;
+  text-align: center;
+  color: red;
+  font-size: 18px;
+  margin: 20px;
+}
+
+.hidden {
+  display: none !important;
 }
