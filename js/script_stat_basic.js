@@ -75,7 +75,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         title: {
           text: "←割安 割高→",
         },
-        range: [-40, 40],
         dtick: 10,
       },
       updatemenus: [
